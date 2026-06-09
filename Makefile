@@ -31,9 +31,12 @@ format-check:
 typecheck:
 	mypy
 
+# Run pytest directly (like Core). Assumes the workspace is built and sourced
+# (`make build && source install/setup.bash`) so package imports resolve.
+# colcon test is avoided: its ament_python step uses unittest, which does not
+# collect plain pytest functions.
 test:
-	colcon test
-	colcon test-result --verbose
+	pytest src
 
 check: lint format-check typecheck test
 

@@ -50,10 +50,14 @@ jobs:
           source /opt/ros/jazzy/setup.bash
           colcon build --symlink-install
 
-      - name: Test (colcon)
+      - name: Test (pytest)
         shell: bash
+        # Run pytest directly rather than `colcon test`: colcon's ament_python
+        # test step falls back to the unittest runner, which does not collect
+        # plain pytest-style test functions (it reports "Ran 0 tests", exit 5).
+        # Sourcing install/setup.bash puts the built packages on PYTHONPATH so
+        # the node/adapter imports resolve. Mirrors Core, whose `make test` is pytest.
         run: |
           source /opt/ros/jazzy/setup.bash
           source install/setup.bash
-          colcon test
-          colcon test-result --verbose
+          pytest src
