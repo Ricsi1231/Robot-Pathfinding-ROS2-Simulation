@@ -27,3 +27,12 @@ select = [
 # ROS 2 launch files use a fixed generate_launch_description() entry point and
 # conventional imports; keep them lint-clean without fighting framework idioms.
 "**/launch/*" = ["N802"]
+
+[lint.isort]
+# The workspace packages are first-party; robot_pathfinding (Core) is an external
+# pip dependency, so it stays in the third-party group above them.
+known-first-party = [
+    "robot_pathfinding_nav",
+    "robot_pathfinding_bringup",
+    "robot_pathfinding_description",
+]
