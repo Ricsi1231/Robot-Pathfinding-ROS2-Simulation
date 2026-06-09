@@ -26,9 +26,7 @@ def generate_launch_description() -> LaunchDescription:
     xacro_path = os.path.join(description_share, "urdf", "robot.urdf.xacro")
     bridge_config = os.path.join(bringup_share, "config", "bridge.yaml")
 
-    robot_description = ParameterValue(
-        Command(["xacro ", xacro_path]), value_type=str
-    )
+    robot_description = ParameterValue(Command(["xacro ", xacro_path]), value_type=str)
 
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -48,9 +46,12 @@ def generate_launch_description() -> LaunchDescription:
         package="ros_gz_sim",
         executable="create",
         arguments=[
-            "-name", "pathfinding_bot",
-            "-topic", "robot_description",
-            "-z", "0.1",
+            "-name",
+            "pathfinding_bot",
+            "-topic",
+            "robot_description",
+            "-z",
+            "0.1",
         ],
         output="screen",
     )

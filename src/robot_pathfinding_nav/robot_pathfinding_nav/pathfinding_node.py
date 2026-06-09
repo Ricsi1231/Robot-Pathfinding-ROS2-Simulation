@@ -100,9 +100,7 @@ class PathfindingNode(Node):
         start = world_to_cell(
             self._pose.pose.position.x, self._pose.pose.position.y, metadata
         )
-        goal_cell = world_to_cell(
-            goal.pose.position.x, goal.pose.position.y, metadata
-        )
+        goal_cell = world_to_cell(goal.pose.position.x, goal.pose.position.y, metadata)
 
         result = self._pathfinder.find_path(grid, start, goal_cell)
         if not result.found:
