@@ -7,16 +7,22 @@ jobs:
   test:
     name: ROS 2 Jazzy
     runs-on: ubuntu-latest
-    # The official ROS image pins the distro's Python (3.12) and provides
-    # colcon + rosdep, so no Python matrix is needed (unlike Core).
-    container: ros:jazzy
+    # ros-base pins the distro's Python (3.12) and bundles colcon + rosdep, so no
+    # Python matrix is needed (unlike Core). The base image is intentionally lean,
+    # so pip / git are installed via apt below.
+    container: ros:jazzy-ros-base
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install system build tools (pip, colcon, git)
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            python3-pip git python3-colcon-common-extensions
+
       - name: Install dev tooling and the Core library
         run: |
-          python3 -m pip install --break-system-packages --upgrade pip
           python3 -m pip install --break-system-packages -r requirements-dev.txt
           python3 -m pip install --break-system-packages \
             "git+https://github.com/Ricsi1231/Robot-Pathfinding-Core.git"
