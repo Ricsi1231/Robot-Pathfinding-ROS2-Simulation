@@ -1,0 +1,29 @@
+# Ruff config reused verbatim from Robot-Pathfinding-Core (pyproject [tool.ruff]),
+# flattened to a standalone ruff.toml because a colcon workspace has no root
+# pyproject.toml. target-version bumped to py312 (ROS 2 Jazzy ships Python 3.12).
+line-length = 88
+target-version = "py312"
+src = ["src"]
+
+# Generated / vendored colcon output is never linted.
+extend-exclude = ["build", "install", "log"]
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "RUF", # ruff-specific rules
+]
+
+[lint.per-file-ignores]
+"**/test/*" = ["N802", "N803"]
+# ROS 2 launch files use a fixed generate_launch_description() entry point and
+# conventional imports; keep them lint-clean without fighting framework idioms.
+"**/launch/*" = ["N802"]

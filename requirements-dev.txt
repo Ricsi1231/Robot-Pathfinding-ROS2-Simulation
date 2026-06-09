@@ -1,0 +1,7 @@
+# Dev tooling parity with Robot-Pathfinding-Core's [project.optional-dependencies].dev.
+# The Core library itself is installed separately (see Makefile / CI):
+#   pip install "git+https://github.com/Ricsi1231/Robot-Pathfinding-Core.git"
+ruff>=0.6
+mypy>=1.11
+pytest>=8
+pre-commit>=3.7
